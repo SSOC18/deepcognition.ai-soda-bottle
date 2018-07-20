@@ -1,0 +1,4 @@
+- Built model similar to tutorial for toilets dataset (also a public dataset on deepcognition.ai)
+- trained for 8 epochs, with batch size = 15
+- will commit these files into repo after the competition is over (I think there was something about this in the rules)
+- got submission score of 52%

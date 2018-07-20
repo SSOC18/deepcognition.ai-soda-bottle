@@ -1,0 +1,96 @@
+data:
+  dataset: {name: Soda Bottles, samples: 6615, type: public}
+  datasetLoadOption: batch
+  kfold: 1
+  mapping:
+    Filename:
+      options: {Augmentation: false, Height: 28, Normalization: false, Resize: false,
+        Scaling: 1, Width: 28, height_shift_range: 0, horizontal_flip: false, pretrained: None,
+        rotation_range: 0, shear_range: 0, vertical_flip: false, width_shift_range: 0}
+      port: InputPort0
+      shape: ''
+      type: Image
+    Label:
+      options: {}
+      port: OutputPort0
+      shape: ''
+      type: Categorical
+  numPorts: 1
+  samples: {split: 4, test: 661, training: 5292, validation: 661}
+  shuffle: true
+model:
+  connections:
+  - {source: Input_1, target: VGG16_3}
+  - {source: Convolution2D_1, target: Convolution2D_2}
+  - {source: Dense_1, target: Dropout_3}
+  - {source: BatchNormalization_1, target: Convolution2D_1}
+  - {source: Convolution2D_2, target: MaxPooling2D_1}
+  - {source: Dense_3, target: Output_1}
+  - {source: MaxPooling2D_1, target: Flatten_8}
+  - {source: Flatten_8, target: Dense_1}
+  - {source: VGG16_3, target: BatchNormalization_1}
+  - {source: Dropout_3, target: Dense_3}
+  layers:
+  - args: {}
+    class: Input
+    name: Input_1
+    x: 103.07000000000002
+    y: 29.6
+  - args: {}
+    class: Output
+    name: Output_1
+    x: 890.9200000000001
+    y: 599.1400000000001
+  - args: {axis: '1'}
+    class: BatchNormalization
+    name: BatchNormalization_1
+    x: 100.76
+    y: 251.19
+  - args: {activation: relu, border_mode: same, nb_col: '3', nb_filter: '32', nb_row: '3'}
+    class: Convolution2D
+    name: Convolution2D_1
+    x: 104.08000000000003
+    y: 366.74
+  - args: {activation: relu, nb_col: '3', nb_filter: '32', nb_row: '3'}
+    class: Convolution2D
+    name: Convolution2D_2
+    x: 104.08000000000003
+    y: 496.22
+  - args: {}
+    class: MaxPooling2D
+    name: MaxPooling2D_1
+    x: 104.08000000000001
+    y: 624.0400000000001
+  - args: {activation: relu, output_dim: '512'}
+    class: Dense
+    name: Dense_1
+    x: 503.48
+    y: 723.6400000000001
+  - args: {p: '0.25'}
+    class: Dropout
+    name: Dropout_3
+    x: 899.22
+    y: 177.50000000000009
+  - args: {activation: softmax, output_dim: '8'}
+    class: Dense
+    name: Dense_3
+    x: 890.9200000000002
+    y: 477.96000000000004
+  - args: {include_top: false, trainable: '60'}
+    class: VGG16
+    name: VGG16_3
+    x: 100.04000000000003
+    y: 138.05
+  - args: {}
+    class: Flatten
+    name: Flatten_8
+    x: 497.5
+    y: 549.34
+params:
+  advance_params: true
+  batch_size: 15
+  is_custom_loss: false
+  loss_func: categorical_crossentropy
+  num_epoch: 8
+  optimizer: {decay: 1e-6, name: SGD, nesterov: true}
+project: soda

@@ -1,0 +1,4 @@
+- Built model based on Mickael's research and replication of "inception"
+- trained for 10 epochs, with batch size = 5
+- will commit these files into repo after the competition is over (I think there was something about this in the rules)
+- got submission score of 65%
